@@ -125,7 +125,7 @@ void joystickRun() {
   }
 
   else if (ps.Button(PSB_PAD_UP)) {
-    initialize();
+//    initialize();
   }
 
   else if (ps.Button(PSB_R1)) {
