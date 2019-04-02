@@ -25,8 +25,6 @@ void setup()
   
   stop();
 
-  while(1)
-    Serial.println(String(digitalRead(m4)));
 }
 
 void loop()
