@@ -35,17 +35,15 @@ void setup() {
   pinMode(mBRd, OUTPUT);
   pinMode(gerege_dir, OUTPUT);
 
-  pinMode(hall_fr, INPUT);
-  pinMode(hall_fl, INPUT);
-  pinMode(hall_br, INPUT);
-  pinMode(hall_bl, INPUT);
+  pinMode(hall_fr, INPUT_PULLUP);
+  pinMode(hall_fl, INPUT_PULLUP);
+  pinMode(hall_br, INPUT_PULLUP);
+  pinMode(hall_bl, INPUT_PULLUP);
 
   pinMode(ir_gerege, INPUT_PULLUP);
 
   pinMode(12, OUTPUT);
   pinMode(7, OUTPUT);
-
-  //12, 7 ground
 
   digitalWrite(mTLd, !HIGH);
   digitalWrite(mTRd, HIGH);
@@ -58,7 +56,7 @@ void setup() {
   Serial.begin(9600);
   //    test();
   //  while (1);
-    initialize();
+  initialize();
   //  delay(1500);
   //  while (1);
   delay(3000);
@@ -69,22 +67,19 @@ void loop() {
   //  flow();
   walk();
 
-  while (digitalRead(hall_fr))
-    Serial.println("Waiting for hall in count   ");
-  while(!digitalRead(hall_fr));
+  delay(100);
+
+  while (digitalRead(hall_fl))
+    Serial.println("Waiting for hall in count");
   hall_count++;
   Serial.println("Count = " + String(hall_count));
 
-  if (hall_count % 4 == 0){
+  if (hall_count % 3 == 0) {
     initialize();
     stop();
     delay(1000);
-  }
-
     
-
-  //  timer = millis();
-  //  while(millis() - timer <= 1300);
-  //  stop();
-  //  initialize();
+  }
+  else
+    while (!digitalRead(hall_fl));
 }
