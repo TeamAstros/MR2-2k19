@@ -21,4 +21,3 @@ void raise_gerege() {
   digitalWrite(gerege_dir, !LOW);
   analogWrite(gerege_pwm, 100);
 }
-

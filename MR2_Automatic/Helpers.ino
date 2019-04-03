@@ -8,13 +8,13 @@ void initialize() {
     Serial.println(" Back Right " + String(digitalRead(hall_br)));
   }
 
-//  while (digitalRead(hall_bl) != 0) {
-//    walk(0, 0, 250, 0);
-//    Serial.print(" Front Left : " + String(digitalRead(hall_fl)));
-//    Serial.print(" Front Right : " + String(digitalRead(hall_fr)));
-//    Serial.print(" Back Left : " + String(digitalRead(hall_bl)));
-//    Serial.println(" Back Right " + String(digitalRead(hall_br)));
-//  }
+  while (digitalRead(hall_bl) != 0) {
+    walk(0, 0, 250, 0);
+    Serial.print(" Front Left : " + String(digitalRead(hall_fl)));
+    Serial.print(" Front Right : " + String(digitalRead(hall_fr)));
+    Serial.print(" Back Left : " + String(digitalRead(hall_bl)));
+    Serial.println(" Back Right " + String(digitalRead(hall_br)));
+  }
 
   while (digitalRead(hall_fl) != 0) {
     walk(250, 0, 0, 0);

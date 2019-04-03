@@ -2,8 +2,8 @@ const int mTLd = 10;
 const int mTLp = 11;
 const int mTRd = 8;
 const int mTRp = 9;
-const int mBLd = 3;
-const int mBLp = 4;
+const int mBLd = 52;
+const int mBLp = 50;
 const int mBRd = 5;
 const int mBRp = 6;
 
@@ -13,7 +13,7 @@ const int gerege_pwm = 12;
 const int hall_fr = 22;
 const int hall_fl = 24;
 const int hall_br = 28;
-const int hall_bl = 50;
+const int hall_bl = 26;
 
 const int ir_gerege = 10;
 
@@ -44,14 +44,16 @@ void setup() {
 
   pinMode(12, OUTPUT);
   pinMode(7, OUTPUT);
+  pinMode(48, OUTPUT);
 
   digitalWrite(mTLd, !HIGH);
   digitalWrite(mTRd, HIGH);
-  digitalWrite(mBLd, !HIGH);
+  digitalWrite(mBLd, HIGH);
   digitalWrite(mBRd, HIGH);
 
   digitalWrite(12, LOW);   //Ground
-  digitalWrite(7, LOW);  //Ground
+  digitalWrite(7, LOW);    //Ground
+  digitalWrite(48, LOW);   //Ground
 
   Serial.begin(9600);
   //    test();
@@ -68,7 +70,6 @@ void loop() {
   walk();
 
   delay(100);
-
   while (digitalRead(hall_fl))
     Serial.println("Waiting for hall in count");
   hall_count++;
@@ -78,7 +79,6 @@ void loop() {
     initialize();
     stop();
     delay(1000);
-    
   }
   else
     while (!digitalRead(hall_fl));
