@@ -91,7 +91,13 @@ void initialize3() {
 
     if (!digitalRead(hall_bl))
       analogWrite(mBLp, 0);
+
+    printHall();
   }
 
-  printHall();
+  stop();
+
+  delay(1000);
+
+
 }
