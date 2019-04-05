@@ -70,9 +70,28 @@ void loop() {
   Serial.println("Count = " + String(hall_count));
 
   if (hall_count % 2 == 0) {
-    initialize();
+    initialize3();
     delay(500);
   }
   else
     while (!digitalRead(hall_fl));
+}
+
+void initialize3() {
+  while (digitalRead(hall_br) != 0) {
+    walk(0, 0, 0, 250);
+    printHall();
+  }
+
+  walk(0, 250, 250, 0);
+
+  while (digitalRead(hall_fr) || digitalRead(hall_bl)) {
+    if (!digitalRead(hall_fr))
+      analogWrite(mTRp, 0);
+
+    if (!digitalRead(hall_bl))
+      analogWrite(mBLp, 0);
+  }
+
+  printHall();
 }
