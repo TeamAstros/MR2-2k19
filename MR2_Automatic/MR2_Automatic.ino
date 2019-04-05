@@ -62,16 +62,11 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(hall_br), hall_br_func, FALLING);
 
   Serial.begin(9600);
-  //    test();
-  //  while (1);
   initialize();
-  //  delay(1500);
-  //  while (1);
   delay(3000);
 }
 
 void loop() {
-  //  while(!Serial.available());
   walk();
 
   if (hall_count % 3 == 0) {
@@ -79,15 +74,4 @@ void loop() {
     stop();
     delay(1000);
   }
-  
-
-//  delay(100);
-//  while (digitalRead(hall_fl))
-//    Serial.println("Waiting for hall in count");
-//  hall_count++;
-//  Serial.println("Count = " + String(hall_count));
-//
-  
-//  else
-//    while (!digitalRead(hall_fl));
 }
