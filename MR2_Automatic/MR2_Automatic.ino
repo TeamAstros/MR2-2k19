@@ -10,10 +10,10 @@ const int mBRp = 6;
 const int gerege_dir = 11;
 const int gerege_pwm = 12;
 
-const int hall_fr = 22;
-const int hall_fl = 24;
-const int hall_br = 28;
-const int hall_bl = 26;
+const int hall_fr = 19;
+const int hall_fl = 18;
+const int hall_br = 21;
+const int hall_bl = 20;
 
 const int ir_gerege = 10;
 
@@ -56,29 +56,22 @@ void setup() {
   digitalWrite(48, LOW);   //Ground
 
   Serial.begin(9600);
-  //    test();
-  //  while (1);
   initialize();
-  //  delay(1500);
-  //  while (1);
   delay(3000);
 }
 
 void loop() {
   //  while(!Serial.available());
-  //  flow();
   walk();
 
-  delay(100);
   while (digitalRead(hall_fl))
     Serial.println("Waiting for hall in count");
   hall_count++;
   Serial.println("Count = " + String(hall_count));
 
-  if (hall_count % 3 == 0) {
+  if (hall_count % 2 == 0) {
     initialize();
-    stop();
-    delay(1000);
+    delay(500);
   }
   else
     while (!digitalRead(hall_fl));

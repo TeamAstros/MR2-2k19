@@ -1,16 +1,19 @@
-void hall_test() {
-  while (!Serial.available()) {
+void hall_test()
+{
+  Serial.flush();
+  while (!Serial.available())
+  {
     Serial.print(" Front Left : " + String(digitalRead(hall_fl)));
     Serial.print(" Front Right : " + String(digitalRead(hall_fr)));
     Serial.print(" Back Left : " + String(digitalRead(hall_bl)));
     Serial.println(" Back Right " + String(digitalRead(hall_br)));
   }
-  Serial.read();
   Serial.println("Hall Sensor Test Success");
   delay(1000);
 }
 
-void motors_test() {
+void motors_test()
+{
   while (!Serial.available());
   while (1) {
     int test = Serial.parseInt();
@@ -45,7 +48,8 @@ void motors_test() {
   delay(1000);
 }
 
-void gerege_test() {
+void gerege_test()
+{
   unsigned long timer = millis();
   raise_gerege();
   while (millis() - timer <= 500);
@@ -56,7 +60,8 @@ void gerege_test() {
   Serial.println("Gerege Mechanism Tested Successfully");
 }
 
-void test() {
+void test()
+{
   hall_test();
   motors_test();
   motors_test();
@@ -64,4 +69,3 @@ void test() {
   motors_test();
   gerege_test();
 }
-
