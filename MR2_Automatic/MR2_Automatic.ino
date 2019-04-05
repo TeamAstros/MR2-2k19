@@ -19,7 +19,8 @@ const int ir_gerege = 10;
 
 bool state = HIGH;
 byte reading = 0;
-volatile int counter1 = 0, counter2 = 0, counter3 = 0;
+volatile int tlcnt = 0, trcnt = 0, blcnt = 0, brcnt = 0;
+int counter1 = 0, counter2 = 0, counter3 = 0;
 bool a1Flag = 0, b1Flag = 0, a2Flag = 0, b2Flag = 0, a3Flag = 0, b3Flag = 0, lflag = 1;
 int count_line1 = 100, turn_count = 50, sand_dune_count = 20, turn_count2 = 30, ninety_count = 40, tussock_count = 50, uphill_count = 60;
 unsigned long timer = 0;
@@ -55,12 +56,18 @@ void setup() {
   digitalWrite(7, LOW);    //Ground
   digitalWrite(48, LOW);   //Ground
 
+  attachInterrupt(digitalPinToInterrupt(hall_fl), hall_fl_func, FALLING);
+  attachInterrupt(digitalPinToInterrupt(hall_fr), hall_fr_func, FALLING);
+  attachInterrupt(digitalPinToInterrupt(hall_bl), hall_bl_func, FALLING);
+  attachInterrupt(digitalPinToInterrupt(hall_br), hall_br_func, FALLING);
+
   Serial.begin(9600);
   initialize();
   delay(3000);
 }
 
 void loop() {
+<<<<<<< HEAD
   //  while(!Serial.available());
   walk();
 
@@ -72,9 +79,15 @@ void loop() {
   if (hall_count % 2 == 0) {
     initialize3();
     delay(500);
+=======
+  walk();
+
+  if (hall_count % 3 == 0) {
+    initialize();
+    stop();
+    delay(1000);
+>>>>>>> a3b8218ae78b109e0552383a313c8b9b4aa1da40
   }
-  else
-    while (!digitalRead(hall_fl));
 }
 
 void initialize3() {

@@ -32,7 +32,6 @@ void initialize() {
     Serial.println(" Back Right " + String(digitalRead(hall_br)));
   }
 
-  counter1 = 0;
   Serial.println("Set hu main");
   stop();
 }
