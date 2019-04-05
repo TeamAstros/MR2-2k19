@@ -36,3 +36,10 @@ void initialize() {
   Serial.println("Set hu main");
   stop();
 }
+
+void printHall() {
+  Serial.print(" Front Left : " + String(digitalRead(hall_fl)));
+  Serial.print(" Front Right : " + String(digitalRead(hall_fr)));
+  Serial.print(" Back Left : " + String(digitalRead(hall_bl)));
+  Serial.println(" Back Right " + String(digitalRead(hall_br)));
+}
