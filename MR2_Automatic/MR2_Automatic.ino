@@ -27,7 +27,7 @@ unsigned long timer = 0;
 
 int hall_count = 0;
 
-void walk(byte tl = 250, byte tr = 250, byte bl = 250, byte br = 250);
+void walk(byte tl = 187, byte tr = 187, byte bl = 187, byte br = 255);
 
 void setup() {
   pinMode(mTLd, OUTPUT);
@@ -56,18 +56,12 @@ void setup() {
   digitalWrite(7, LOW);    //Ground
   digitalWrite(48, LOW);   //Ground
 
-  attachInterrupt(digitalPinToInterrupt(hall_fl), hall_fl_func, FALLING);
-  attachInterrupt(digitalPinToInterrupt(hall_fr), hall_fr_func, FALLING);
-  attachInterrupt(digitalPinToInterrupt(hall_bl), hall_bl_func, FALLING);
-  attachInterrupt(digitalPinToInterrupt(hall_br), hall_br_func, FALLING);
-
   Serial.begin(9600);
   initialize();
   delay(3000);
 }
 
 void loop() {
-<<<<<<< HEAD
   //  while(!Serial.available());
   walk();
 
@@ -76,18 +70,12 @@ void loop() {
   hall_count++;
   Serial.println("Count = " + String(hall_count));
 
-  if (hall_count % 2 == 0) {
+  if (hall_count % 2 == 0 && hall_count != 0) {
     initialize3();
     delay(500);
-=======
-  walk();
-
-  if (hall_count % 3 == 0) {
-    initialize();
-    stop();
-    delay(1000);
->>>>>>> a3b8218ae78b109e0552383a313c8b9b4aa1da40
   }
+  else
+    while(!digitalRead(hall_fl));
 }
 
 void initialize3() {
@@ -107,10 +95,6 @@ void initialize3() {
 
     printHall();
   }
-
   stop();
-
   delay(1000);
-
-
 }
