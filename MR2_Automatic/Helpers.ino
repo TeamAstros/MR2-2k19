@@ -7,7 +7,7 @@ void initialize() {
   }
 
     while (digitalRead(hall_br) != 0) {
-    walk(0, 0, 0, 250);
+    walk(0, 0, 0, 113);
     printHall();
   }
   

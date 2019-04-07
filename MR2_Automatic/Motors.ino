@@ -1,4 +1,4 @@
-void walk(byte tl = 187, byte tr = 187, byte bl = 187, byte br = 255) {
+void walk(byte tl = 250, byte tr = 250, byte bl = 250, byte br = 113) {
   analogWrite(mTLp, tl);
   analogWrite(mTRp, tr);
   analogWrite(mBLp, bl);

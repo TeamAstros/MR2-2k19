@@ -27,7 +27,7 @@ unsigned long timer = 0;
 
 int hall_count = 0;
 
-void walk(byte tl = 187, byte tr = 187, byte bl = 187, byte br = 255);
+void walk(byte tl = 250, byte tr = 250, byte bl = 250, byte br = 113);
 
 void setup() {
   pinMode(mTLd, OUTPUT);
@@ -63,9 +63,13 @@ void setup() {
 
 void loop() {
   //  while(!Serial.available());
+  code();
+}
+
+void code() {
   walk();
 
-  while (digitalRead(hall_fl))
+  while (digitalRead(hall_fr))
     Serial.println("Waiting for hall in count");
   hall_count++;
   Serial.println("Count = " + String(hall_count));
@@ -75,23 +79,23 @@ void loop() {
     delay(500);
   }
   else
-    while(!digitalRead(hall_fl));
+    while (!digitalRead(hall_fr));
 }
 
 void initialize3() {
-  while (digitalRead(hall_br) != 0) {
-    walk(0, 0, 0, 250);
+  while (digitalRead(hall_bl) != 0) {
+    walk(0, 0, 250, 0);
     printHall();
   }
 
-  walk(0, 250, 250, 0);
+  walk(250, 0, 0, 113);
 
-  while (digitalRead(hall_fr) || digitalRead(hall_bl)) {
-    if (!digitalRead(hall_fr))
-      analogWrite(mTRp, 0);
+  while (digitalRead(hall_fl) || digitalRead(hall_br)) {
+    if (!digitalRead(hall_fl))
+      analogWrite(mTLp, 0);
 
-    if (!digitalRead(hall_bl))
-      analogWrite(mBLp, 0);
+    if (!digitalRead(hall_br))
+      analogWrite(mBRp, 0);
 
     printHall();
   }
