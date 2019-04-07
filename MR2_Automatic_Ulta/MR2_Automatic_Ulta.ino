@@ -10,10 +10,10 @@ const int mBRp = 6;
 const int gerege_dir = 11;
 const int gerege_pwm = 12;
 
-const int hall_fr = 19;
-const int hall_fl = 18;
-const int hall_br = 21;
-const int hall_bl = 20;
+const int hall_fr = 20;
+const int hall_fl = 21;
+const int hall_br = 18;
+const int hall_bl = 19;
 
 const int ir_gerege = 10;
 
@@ -47,10 +47,10 @@ void setup() {
   pinMode(7, OUTPUT);
   pinMode(48, OUTPUT);
 
-  digitalWrite(mTLd, !HIGH);
-  digitalWrite(mTRd, HIGH);
-  digitalWrite(mBLd, HIGH);
-  digitalWrite(mBRd, HIGH);
+  digitalWrite(mTLd, HIGH);
+  digitalWrite(mTRd, !HIGH);
+  digitalWrite(mBLd, !HIGH);
+  digitalWrite(mBRd, !HIGH);
 
   digitalWrite(12, LOW);   //Ground
   digitalWrite(7, LOW);    //Ground
