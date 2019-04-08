@@ -1,8 +1,13 @@
-void walk(byte tl = 250, byte tr = 250, byte bl = 250, byte br = 125) {
-  analogWrite(mTLp, tl);
-  analogWrite(mTRp, tr);
-  analogWrite(mBLp, bl);
-  analogWrite(mBRp, br);
+void walk(byte tl = speedTL, byte tr = speedTR, byte bl = speedBL, byte br = speedBR) {
+  if(tl != prevTL)  analogWrite(mTLp, tl);
+  if(tr != prevTR)  analogWrite(mTRp, tr);
+  if(bl != prevBL)  analogWrite(mBLp, bl);
+  if(br != prevBR)  analogWrite(mBRp, br);
+
+  prevTL = tl;
+  prevTR = tr;
+  prevBL = bl;
+  prevBR = br; 
 }
 
 void stop() {
@@ -10,14 +15,4 @@ void stop() {
   analogWrite(mTRp, 0);
   analogWrite(mBLp, 0);
   analogWrite(mBRp, 0);
-}
-
-void low_gerege() {
-  digitalWrite(gerege_dir, LOW);
-  analogWrite(gerege_pwm, 100);
-}
-
-void raise_gerege() {
-  digitalWrite(gerege_dir, !LOW);
-  analogWrite(gerege_pwm, 100);
 }

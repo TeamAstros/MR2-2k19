@@ -1,27 +1,10 @@
 void initialize() {
-  Serial.println("Set to hone de re ");
-
-    while (digitalRead(hall_fl) != 0) {
-    walk(250, 0, 0, 0);
-    printHall();
-  }
-
-    while (digitalRead(hall_br) != 0) {
-    walk(0, 0, 0, 125);
-    printHall();
-  }
-  
-  while (digitalRead(hall_fr) != 0) {
-    walk(0, 250, 0, 0);
-    printHall();
-  }
-
-  while (digitalRead(hall_bl) != 0) {
-    walk(0, 0, 250, 0);
-    printHall();
-  }
-
-  Serial.println("Set hu main");
+  Serial.println("Engaging Pre-Running Tests");
+  while (digitalRead(hall_fl) != 0) walk(250, 0, 0, 0);
+  while (digitalRead(hall_br) != 0)  walk(0, 0, 0, 125);
+  while (digitalRead(hall_fr) != 0) walk(0, 250, 0, 0);
+  while (digitalRead(hall_bl) != 0) walk(0, 0, 250, 0);
+  Serial.println("All Set Ready To Take Off !");
   stop();
 }
 
