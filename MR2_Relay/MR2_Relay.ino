@@ -25,19 +25,18 @@ void setup(){
   digitalWrite(7, LOW);
 
   digitalWrite(dir, LOW);
-  analogWrite(pwm, 150);
+  analogWrite(pwm, 200);
 
   pinMode(hall_fl, INPUT_PULLUP);
   pinMode(hall_fr, INPUT_PULLUP);
   pinMode(hall_bl, INPUT_PULLUP);
   pinMode(hall_br, INPUT_PULLUP);
-  
+
 }
 
 void loop(){
   initialize();
   delay(1000);
-//  Serial.println("lol mai aayaa-----------------------------------------------");
   walk();
   while (!digitalRead(hall_bl)) hall();
   while (digitalRead(hall_bl)) hall();

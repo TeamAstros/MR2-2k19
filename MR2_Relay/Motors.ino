@@ -28,10 +28,8 @@ void initialize() {
   }
   digitalWrite(mBL, HIGH);
 
-  while (digitalRead(hall_br)){
     digitalWrite(mBR, LOW);
-    hall();
-  }
+    delay(1000);
   digitalWrite(mBR, HIGH);
 
   
