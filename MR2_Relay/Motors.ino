@@ -13,36 +13,29 @@ void stop() {
 }
 
 void initialize() {
-  stop();
+    Serial.println("Set to hone de re ");
 
-  while (digitalRead(hall_fr)) {
-    digitalWrite(mTR, LOW);
-    hall();
-  }
-  digitalWrite(mTR, HIGH);
+    while (digitalRead(hall_fr) != 0){
+      digitalWrite(mTR, LOW);
+     
+    }
+    digitalWrite(mTR, HIGH);
 
+    while (digitalRead(hall_br) != 1){
+      digitalWrite(mBR, LOW);
+    }
+    digitalWrite(mBR, HIGH);
 
-  while (digitalRead(hall_bl)) {
-    digitalWrite(mBL, LOW);
-    hall();
-  }
-  digitalWrite(mBL, HIGH);
+    while (digitalRead(hall_fl) != 0){
+      digitalWrite(mTL, LOW);
+    }
+    digitalWrite(mTL, HIGH);
 
-    digitalWrite(mBR, LOW);
-    delay(1000);
-  digitalWrite(mBR, HIGH);
-
-  
-  while (digitalRead(hall_fl)) {
-    digitalWrite(mTL, LOW);
-    hall();
-  }
-  digitalWrite(mTL, HIGH);
-}
-
-void hall() {
-  Serial.print("Front Left : " + String(digitalRead(hall_fl)));
-  Serial.print(" Front Right : " + String(digitalRead(hall_fr)));
-  Serial.print(" Back Left : " + String(digitalRead(hall_bl)));
-  Serial.println(" Back Right : " + String(digitalRead(hall_br)));
+    /*
+    while (digitalRead(hall_bl) != 0){
+      digitalWrite(mBL, LOW);
+      hall();
+    }
+    digitalWrite(mBL, HIGH);
+    */
 }

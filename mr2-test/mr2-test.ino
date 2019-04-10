@@ -20,6 +20,7 @@ volatile bool flag = 0;
 
 void setup() {
   Serial.begin(9600);
+  Serial.println("setupppppp");
 
   pinMode(mTL, OUTPUT);
   pinMode(mTR, OUTPUT);
@@ -31,39 +32,46 @@ void setup() {
   digitalWrite(7, LOW);
 
   digitalWrite(dir, LOW);
-  analogWrite(pwm, 150);
+  analogWrite(pwm, 200);
 
   digitalWrite(dir1, LOW);
-  analogWrite(pwm1, 150);
-
-  pinMode(hall_fl, INPUT_PULLUP);
-  pinMode(hall_fr, INPUT_PULLUP);
-  pinMode(hall_bl, INPUT_PULLUP);
-  pinMode(hall_br, INPUT_PULLUP);
+  analogWrite(pwm1, 200);
 
   pinMode(10, OUTPUT);
-
   digitalWrite(10, LOW);
 
-  Serial.println("In Setup");
+  Serial.println("In Setup  ---------------------------------------");
 
-  //  digitalWrite(mTL, LOW);
-  //  while (1);
-  stop();
+  digitalWrite(mTL, LOW);
+  digitalWrite(mTR, HIGH);
+  digitalWrite(mBL, HIGH);
+  digitalWrite(mBR, HIGH);
+  while (1)
+    hall();
+}
+void loop() {
+  // put your main code here, to run repeatedly:
 
-  initialize();
-//  while (1);
-  delay(1000);
 }
 
-void loop() {
-  Serial.println("Hall : " + String(digitalRead(hall_bl)));
-  walk();
-  while(!digitalRead(hall_bl)) Serial.println("Hall : " + String(digitalRead(hall_bl)));
-  while(digitalRead(hall_bl)) Serial.println("Hall : " + String(digitalRead(hall_bl)));
-  stop();
-  initialize();
-  delay(2000);
+void init() {
+  while (digitalRead(hall_fl) != 0)
+    digitalWrite(mTL, LOW);
+  digitalWrite(mTL, HIGH);
+
+  while (1);
+
+  while (!digitalRead(hall_br) != 0)
+    digitalWrite(mBR, LOW);
+  digitalWrite(mBR, HIGH);
+
+  while (digitalRead(hall_fr) != 0)
+    digitalWrite(mTR, LOW);
+  digitalWrite(mTR, HIGH);
+
+  while (digitalRead(hall_bl) != 0)
+    digitalWrite(mBL, LOW);
+  digitalWrite(mBL, HIGH);
 }
 
 void hall() {
@@ -71,15 +79,4 @@ void hall() {
   Serial.print(" Front Right : " + String(digitalRead(hall_fr)));
   Serial.print(" Back Left : " + String(digitalRead(hall_bl)));
   Serial.println(" Back Right : " + String(!digitalRead(hall_br)));
-}
-
-void isr() {
-  timer = micros();
-  while (micros() - timer <= 500);
-  if (!digitalRead(hall_bl)) {
-    count++;
-    flag = true;
-  }
-  else
-    return;
 }

@@ -67,5 +67,5 @@ void test()
   motors_test();
   motors_test();
   motors_test();
-  gerege_test();
+//  gerege_test();
 }
