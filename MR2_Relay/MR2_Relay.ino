@@ -1,8 +1,8 @@
-#define dir 5
-#define pwm 6
+#define dtl 5
+#define ptl 6
 
-#define pwm1 9
-#define dir1 8
+#define pbr 9
+#define dbr 8
 
 #define mTL 34
 #define mTR 36
@@ -25,25 +25,25 @@ void setup() {
   pinMode(mTR, OUTPUT);
   pinMode(mBL, OUTPUT);
   pinMode(mBR, OUTPUT);
-  pinMode(dir, OUTPUT);
+  pinMode(dbr, OUTPUT);
+  pinMode(dtl, OUTPUT);
 
   pinMode(7, OUTPUT);
+  pinMode(10, OUTPUT);
+  
   digitalWrite(7, LOW);
+  digitalWrite(10, LOW);
 
-  digitalWrite(dir, LOW);
-  analogWrite(pwm, 150);
+  digitalWrite(dtl, LOW);
+  analogWrite(ptl, 150);
 
-  digitalWrite(dir1, LOW);
-  analogWrite(pwm1, 150);
+  digitalWrite(dbr, LOW);
+  analogWrite(pbr, 150);
 
   pinMode(hall_fl, INPUT_PULLUP);
   pinMode(hall_fr, INPUT_PULLUP);
   pinMode(hall_bl, INPUT_PULLUP);
   pinMode(hall_br, INPUT_PULLUP);
-
-  pinMode(10, OUTPUT);
-
-  digitalWrite(10, LOW);
 
   Serial.println("In Setup");
 
@@ -52,15 +52,18 @@ void setup() {
   stop();
 
   initialize();
-//  while (1);
+  //  while (1)
+  //  {
+  //    hall();
+  //  }
   delay(1000);
 }
 
 void loop() {
   Serial.println("Hall : " + String(digitalRead(hall_bl)));
   walk();
-  while(!digitalRead(hall_bl)) Serial.println("Hall : " + String(digitalRead(hall_bl)));
-  while(digitalRead(hall_bl)) Serial.println("Hall : " + String(digitalRead(hall_bl)));
+  while (!digitalRead(hall_bl)) Serial.println("Hall : " + String(digitalRead(hall_bl)));
+  while (digitalRead(hall_bl)) Serial.println("Hall : " + String(digitalRead(hall_bl)));
   stop();
   initialize();
   delay(2000);
