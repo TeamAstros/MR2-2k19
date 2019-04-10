@@ -1,10 +1,13 @@
 #define dir 5
 #define pwm 6
 
-#define mTL 35
-#define mTR 41
-#define mBL 37
-#define mBR 43
+#define pwm1 9
+#define dir1 8
+
+#define mTL 34
+#define mTR 36
+#define mBL 40
+#define mBR 42
 
 #define hall_fl 21
 #define hall_fr 20
@@ -17,7 +20,7 @@ volatile bool flag = 0;
 
 void setup() {
   Serial.begin(9600);
-  
+
   pinMode(mTL, OUTPUT);
   pinMode(mTR, OUTPUT);
   pinMode(mBL, OUTPUT);
@@ -30,33 +33,44 @@ void setup() {
   digitalWrite(dir, LOW);
   analogWrite(pwm, 200);
 
+  digitalWrite(dir1, LOW);
+  analogWrite(pwm1, 200);
+
   pinMode(hall_fl, INPUT_PULLUP);
   pinMode(hall_fr, INPUT_PULLUP);
   pinMode(hall_bl, INPUT_PULLUP);
   pinMode(hall_br, INPUT_PULLUP);
 
-  attachInterrupt(digitalPinToInterrupt(hall_br), isr, FALLING);
+  pinMode(10, OUTPUT);
+
+  digitalWrite(10, LOW);
+
+  Serial.println("In Setup  ---------------------------------------");
+
+  digitalWrite(mTL, LOW);
+  while (1);
+
+  initialize();
+  delay(1000);
 }
 
 void loop() {
   Serial.println("Count : " + String(count));
-  if (count % 2 == 0 && flag){
-    initialize();
-    flag = !flag;
-  }
-    
-  else
-    walk();
+  walk();
+  while (!digitalRead(hall_bl))
+    hall();
+  while (digitalRead(hall_bl))
+    hall();
+  initialize();
 }
 
 void isr() {
   timer = micros();
-  while (micros() - timer <= 100);
-  if (!digitalRead(hall_br)){
+  while (micros() - timer <= 500);
+  if (!digitalRead(hall_bl)) {
     count++;
     flag = true;
   }
-
   else
     return;
 }
