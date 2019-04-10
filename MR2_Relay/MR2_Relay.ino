@@ -31,10 +31,10 @@ void setup() {
   digitalWrite(7, LOW);
 
   digitalWrite(dir, LOW);
-  analogWrite(pwm, 200);
+  analogWrite(pwm, 150);
 
   digitalWrite(dir1, LOW);
-  analogWrite(pwm1, 200);
+  analogWrite(pwm1, 150);
 
   pinMode(hall_fl, INPUT_PULLUP);
   pinMode(hall_fr, INPUT_PULLUP);
@@ -45,23 +45,32 @@ void setup() {
 
   digitalWrite(10, LOW);
 
-  Serial.println("In Setup  ---------------------------------------");
+  Serial.println("In Setup");
 
-  digitalWrite(mTL, LOW);
-  while (1);
+  //  digitalWrite(mTL, LOW);
+  //  while (1);
+  stop();
 
   initialize();
+//  while (1);
   delay(1000);
 }
 
 void loop() {
-  Serial.println("Count : " + String(count));
+  Serial.println("Hall : " + String(digitalRead(hall_bl)));
   walk();
-  while (!digitalRead(hall_bl))
-    hall();
-  while (digitalRead(hall_bl))
-    hall();
+  while(!digitalRead(hall_bl)) Serial.println("Hall : " + String(digitalRead(hall_bl)));
+  while(digitalRead(hall_bl)) Serial.println("Hall : " + String(digitalRead(hall_bl)));
+  stop();
   initialize();
+  delay(2000);
+}
+
+void hall() {
+  Serial.print("Front Left : " + String(digitalRead(hall_fl)));
+  Serial.print(" Front Right : " + String(digitalRead(hall_fr)));
+  Serial.print(" Back Left : " + String(digitalRead(hall_bl)));
+  Serial.println(" Back Right : " + String(!digitalRead(hall_br)));
 }
 
 void isr() {
@@ -74,4 +83,3 @@ void isr() {
   else
     return;
 }
-
