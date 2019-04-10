@@ -11,16 +11,19 @@
 #define hall_bl 19
 #define hall_br 18
 
-int count = 0;
+volatile int count = 0;
+volatile unsigned long timer = 0;
+volatile bool flag = 0;
 
-void setup(){
+void setup() {
   Serial.begin(9600);
+  
   pinMode(mTL, OUTPUT);
   pinMode(mTR, OUTPUT);
   pinMode(mBL, OUTPUT);
   pinMode(mBR, OUTPUT);
   pinMode(dir, OUTPUT);
-  
+
   pinMode(7, OUTPUT);
   digitalWrite(7, LOW);
 
@@ -32,13 +35,29 @@ void setup(){
   pinMode(hall_bl, INPUT_PULLUP);
   pinMode(hall_br, INPUT_PULLUP);
 
+  attachInterrupt(digitalPinToInterrupt(hall_br), isr, FALLING);
 }
 
-void loop(){
-  initialize();
-  delay(1000);
-  walk();
-  while (!digitalRead(hall_bl)) hall();
-  while (digitalRead(hall_bl)) hall();
-  stop();
+void loop() {
+  Serial.println("Count : " + String(count));
+  if (count % 2 == 0 && flag){
+    initialize();
+    flag = !flag;
+  }
+    
+  else
+    walk();
 }
+
+void isr() {
+  timer = micros();
+  while (micros() - timer <= 100);
+  if (!digitalRead(hall_br)){
+    count++;
+    flag = true;
+  }
+
+  else
+    return;
+}
+
