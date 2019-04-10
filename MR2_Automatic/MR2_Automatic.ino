@@ -27,7 +27,7 @@ unsigned long timer = 0;
 
 int hall_count = 0;
 
-void walk(byte tl = 250, byte tr = 250, byte bl = 250, byte br = 113);
+void walk(byte tl = 250, byte tr = 250, byte bl = 250, byte br = 125);
 
 void setup() {
   pinMode(mTLd, OUTPUT);
@@ -57,7 +57,7 @@ void setup() {
   digitalWrite(48, LOW);   //Ground
 
   Serial.begin(9600);
-  initialize();
+  initialize3();
   delay(3000);
 }
 
@@ -83,12 +83,17 @@ void code() {
 }
 
 void initialize3() {
+  while (digitalRead(hall_fr) != 0) {
+    walk(0, 250, 0, 0);
+    printHall();
+  }
+  
   while (digitalRead(hall_bl) != 0) {
     walk(0, 0, 250, 0);
     printHall();
   }
 
-  walk(250, 0, 0, 113);
+  walk(250, 0, 0, 125);
 
   while (digitalRead(hall_fl) || digitalRead(hall_br)) {
     if (!digitalRead(hall_fl))
