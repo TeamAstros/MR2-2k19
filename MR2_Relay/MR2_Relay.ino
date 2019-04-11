@@ -4,11 +4,8 @@
 #define dbr 5
 #define pbr 6
 
-
-//#define mTL 34
 #define mTR 42
 #define mBL 44
-//#define mBR 42
 
 #define hall_fl 21
 #define hall_fr 20
@@ -25,10 +22,8 @@ volatile bool flag = 0;
 void setup() {
   Serial.begin(9600);
 
-  //  pinMode(mTL, OUTPUT);
   pinMode(mTR, OUTPUT);
   pinMode(mBL, OUTPUT);
-  //  pinMode(mBR, OUTPUT);
   pinMode(dbr, OUTPUT);
   pinMode(dtl, OUTPUT);
 
