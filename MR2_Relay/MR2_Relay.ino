@@ -12,8 +12,8 @@
 #define hall_bl 19
 #define hall_br 18
 
-#define stl 150
-#define sbr 255
+#define stl 180
+#define sbr 180
 
 volatile int count = 0;
 volatile unsigned long timer = 0;
@@ -49,10 +49,10 @@ void setup() {
 }
 
 void loop() {
-  Serial.println("Hall : " + String(digitalRead(hall_bl)));
+  //  Serial.println("Hall : " + /String(digitalRead(hall_bl)));
   walk();
-  while (!digitalRead(hall_bl)) Serial.println("Hall : " + String(digitalRead(hall_bl)));
-  while (digitalRead(hall_bl)) Serial.println("Hall : " + String(digitalRead(hall_bl)));
+  while (!digitalRead(hall_fr)) Serial.println("Hall : " + String(digitalRead(hall_fr)));
+  while (digitalRead(hall_fr)) Serial.println("Hall : " + String(digitalRead(hall_fr)));
   stop();
   initialize();
   delay(2000);
