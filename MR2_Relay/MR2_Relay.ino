@@ -44,21 +44,21 @@ void setup() {
   Serial.println("In Setup");
   stop();
 
-  analogWrite(ptl, 150);
-  while(1);
+  //  analogWrite(ptl, 150);
+  //  while(1);
 
   initialize();
-  delay(1000);
+  delay(2000);
 }
 
 void loop() {
   //  Serial.println("Hall : " + /String(digitalRead(hall_bl)));
   walk();
-  while (!digitalRead(hall_fr)) Serial.println("Hall : " + String(digitalRead(hall_fr)));
-  while (digitalRead(hall_fr)) Serial.println("Hall : " + String(digitalRead(hall_fr)));
+  while (!digitalRead(hall_bl)) Serial.println("Hall : " + String(digitalRead(hall_bl)));
+  while (digitalRead(hall_bl)) Serial.println("Hall : " + String(digitalRead(hall_bl)));
   stop();
   initialize();
-  delay(2000);
+  delay(500);
 }
 
 void hall() {
@@ -66,15 +66,4 @@ void hall() {
   Serial.print(" Front Right : " + String(digitalRead(hall_fr)));
   Serial.print(" Back Left : " + String(digitalRead(hall_bl)));
   Serial.println(" Back Right : " + String(digitalRead(hall_br)));
-}
-
-void isr() {
-  timer = micros();
-  while (micros() - timer <= 500);
-  if (!digitalRead(hall_bl)) {
-    count++;
-    flag = true;
-  }
-  else
-    return;
 }
