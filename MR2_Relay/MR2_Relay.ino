@@ -12,6 +12,10 @@
 #define hall_bl 20
 #define hall_br 21
 
+#define g_dir 2
+#define g_pwm 3
+#define limit 28
+
 #define stl 150
 #define sbr 150
 
@@ -26,23 +30,32 @@ void setup() {
   pinMode(mBL, OUTPUT);
   pinMode(dbr, OUTPUT);
   pinMode(dtl, OUTPUT);
+  pinMode(g_dir, OUTPUT);
+  pinMode(limit, INPUT_PULLUP);
 
+  pinMode(4, OUTPUT);
   pinMode(7, OUTPUT);
   pinMode(10, OUTPUT);
-
-  digitalWrite(7, LOW);
-  digitalWrite(10, LOW);
-
-  digitalWrite(dbr, HIGH);
-  digitalWrite(dtl, LOW);
 
   pinMode(hall_fl, INPUT_PULLUP);
   pinMode(hall_fr, INPUT_PULLUP);
   pinMode(hall_bl, INPUT_PULLUP);
   pinMode(hall_br, INPUT_PULLUP);
 
+  digitalWrite(4, LOW);
+  digitalWrite(7, LOW);
+  digitalWrite(10, LOW);
+
+  digitalWrite(dbr, HIGH);
+  digitalWrite(dtl, LOW);
+
+  analogWrite(g_pwm, 0);
+
   Serial.println("In Setup");
   stop();
+
+  while (1)
+    Serial.println(digitalRead(limit));
 
   //  analogWrite(ptl, 150);
   //  while(1);
@@ -53,6 +66,10 @@ void setup() {
 
 void loop() {
   //  Serial.println("Hall : " + /String(digitalRead(hall_bl)));
+
+  while (digitalRead(limit) != 0)
+    Serial.println("Limit Switch laga na re");
+
   walk();
   while (!digitalRead(hall_bl)) Serial.println("Hall : " + String(digitalRead(hall_bl)));
   while (digitalRead(hall_bl)) Serial.println("Hall : " + String(digitalRead(hall_bl)));
