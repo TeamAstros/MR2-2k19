@@ -14,7 +14,7 @@
 
 #define g_dir 2
 #define g_pwm 3
-#define limit 28
+#define limit 30
 
 #define stl 150
 #define sbr 150
@@ -54,28 +54,30 @@ void setup() {
   Serial.println("In Setup");
   stop();
 
-  while (1)
-    Serial.println(digitalRead(limit));
+  //  while (1)
+  //    Serial.println(digitalRead(limit));
 
   //  analogWrite(ptl, 150);
   //  while(1);
 
   initialize();
   delay(2000);
-}
-
-void loop() {
-  //  Serial.println("Hall : " + /String(digitalRead(hall_bl)));
 
   while (digitalRead(limit) != 0)
     Serial.println("Limit Switch laga na re");
 
+  delay(2000);
+}
+
+void loop() {
+  //  Serial.println("Hall : " + /String(digitalRead(hall_bl)));
   walk();
   while (!digitalRead(hall_bl)) Serial.println("Hall : " + String(digitalRead(hall_bl)));
   while (digitalRead(hall_bl)) Serial.println("Hall : " + String(digitalRead(hall_bl)));
   stop();
   initialize();
   delay(500);
+  while(1);
 }
 
 void hall() {

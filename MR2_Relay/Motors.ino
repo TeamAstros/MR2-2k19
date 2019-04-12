@@ -40,10 +40,13 @@ void initialize() {
   analogWrite(ptl, stl);
 
   while (digitalRead(hall_br) != 0 || digitalRead(hall_fl) != 0) {
-    if (digitalRead(hall_br) == 0)
+    Serial.println("BR - " + String(digitalRead(hall_br)) + "  FL - " + String(digitalRead(hall_fl)));
+    if (digitalRead(hall_br) == 0){
       analogWrite(pbr, 0);
-    if (digitalRead(hall_fl) == 0)
+    }
+    if (digitalRead(hall_fl) == 0){
       analogWrite(ptl, 0);
+    }
   }
   stop();
 }
