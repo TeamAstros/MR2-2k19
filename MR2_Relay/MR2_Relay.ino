@@ -4,16 +4,16 @@
 #define dbr 5
 #define pbr 6
 
-#define mTR 42
-#define mBL 44
+#define mTR 44
+#define mBL 42
 
-#define hall_fl 21
-#define hall_fr 20
-#define hall_bl 19
-#define hall_br 18
+#define hall_fl 18
+#define hall_fr 19
+#define hall_bl 20
+#define hall_br 21
 
-#define stl 180
-#define sbr 180
+#define stl 150
+#define sbr 150
 
 volatile int count = 0;
 volatile unsigned long timer = 0;
@@ -33,8 +33,8 @@ void setup() {
   digitalWrite(7, LOW);
   digitalWrite(10, LOW);
 
-  digitalWrite(dbr, LOW);
-  digitalWrite(dtl, HIGH);
+  digitalWrite(dbr, HIGH);
+  digitalWrite(dtl, LOW);
 
   pinMode(hall_fl, INPUT_PULLUP);
   pinMode(hall_fr, INPUT_PULLUP);
@@ -43,6 +43,9 @@ void setup() {
 
   Serial.println("In Setup");
   stop();
+
+  analogWrite(ptl, 150);
+  while(1);
 
   initialize();
   delay(1000);
