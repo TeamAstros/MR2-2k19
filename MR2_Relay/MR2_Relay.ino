@@ -20,7 +20,7 @@
 #define sbr 150
 
 volatile int count = 0;
-volatile unsigned long timer = 0;
+volatile unsigned long timer = 0, press = 0;
 volatile bool flag = 0;
 
 void setup() {
@@ -54,30 +54,37 @@ void setup() {
   Serial.println("In Setup");
   stop();
 
-  //  while (1)
-  //    Serial.println(digitalRead(limit));
+  //    while (1)
+  //      Serial.println(digitalRead(limit));
 
   //  analogWrite(ptl, 150);
   //  while(1);
 
-  initialize();
+labelForLimitSwitch:
+  while (digitalRead(limit) != 0)
+    Serial.println("Waiting for Limit Switch");
   delay(2000);
 
-  while (digitalRead(limit) != 0)
-    Serial.println("Limit Switch laga na re");
-
+  //  press = millis();
+  //  while(millis() - press <= 2000){
+  //    Serial.println("Checking for 2 Seconds");
+  //    if(digitalRead(limit) == 1)
+  //      goto labelForLimitSwitch;
+  //  }
+    
+  initialize();
   delay(2000);
 }
 
 void loop() {
-  //  Serial.println("Hall : " + /String(digitalRead(hall_bl)));
+  //  Serial.println("Hall : " + String(digitalRead(hall_bl)));
   walk();
   while (!digitalRead(hall_bl)) Serial.println("Hall : " + String(digitalRead(hall_bl)));
   while (digitalRead(hall_bl)) Serial.println("Hall : " + String(digitalRead(hall_bl)));
   stop();
   initialize();
   delay(500);
-  while(1);
+  //  while (1);
 }
 
 void hall() {
